@@ -223,9 +223,9 @@ public class XPlaneConnect implements AutoCloseable
      */
     public void pauseSim(int pause) throws IOException
     {
-        if(pause < 0 || (pause > 2 && pause < 100) || (pause > 119 && pause < 200) || pause > 219)
+        if(pause < 0 || pause > 2)
         {
-            throw new IllegalArgumentException("pause must be a value in the range [0, 2], [100, 119], or [200, 219].");
+            throw new IllegalArgumentException("pause must be a value in the range [0, 2].");
         }
 
         //            S     I     M     U     LEN   VAL
@@ -549,7 +549,7 @@ public class XPlaneConnect implements AutoCloseable
      * @return An array containing control surface data in the same format as {@code sendPOSI}.
      * @throws IOException If the command cannot be sent or a response cannot be read.
      */
-    public double[] getPOSI(int ac) throws IOException
+    public float[] getPOSI(int ac) throws IOException
     {
         // Send request
         ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -570,7 +570,7 @@ public class XPlaneConnect implements AutoCloseable
         }
 
         // Parse response
-        double[] result = new double[7];
+        float[] result = new float[7];
         ByteBuffer bb = ByteBuffer.wrap(data);
         bb.order(ByteOrder.LITTLE_ENDIAN);
         for(int i = 0; i < 7; ++i)
@@ -600,13 +600,13 @@ public class XPlaneConnect implements AutoCloseable
      *                 </p>
      * @throws IOException If the command can not be sent.
      */
-    public void sendPOSI(double[] values) throws IOException
+    public void sendPOSI(float[] values) throws IOException
     {
         sendPOSI(values, 0);
     }
 
     /**
-     * Sets the position of the specified ac with double precision coordinates.
+     * Sets the position of the specified ac.
      *
      * @param values   <p>An array containing position elements as follows:</p>
      *                 <ol>
@@ -626,7 +626,7 @@ public class XPlaneConnect implements AutoCloseable
      * @param ac The ac to set. 0 for the player ac.
      * @throws IOException If the command can not be sent.
      */
-    public void sendPOSI(double[] values, int ac) throws IOException
+    public void sendPOSI(float[] values, int ac) throws IOException
     {
         //Preconditions
         if(values == null)
@@ -644,22 +644,15 @@ public class XPlaneConnect implements AutoCloseable
 
         //Pad command values and convert to bytes
         int i;
-        ByteBuffer bb = ByteBuffer.allocate(40);
+        ByteBuffer bb = ByteBuffer.allocate(28);
         bb.order(ByteOrder.LITTLE_ENDIAN);
         for(i = 0; i < values.length; ++i)
         {
-            if(i<3) /* lat/lon/height as double */
-            {
-                bb.putDouble(values[i]);
-            }
-            else
-            {
-                bb.putFloat((float)values[i]);
-            }
+            bb.putFloat(i * 4, values[i]);
         }
         for(; i < 7; ++i)
         {
-            bb.putFloat(-998);
+            bb.putFloat(i * 4, -998);
         }
 
         //Build and send message

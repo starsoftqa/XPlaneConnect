@@ -12,7 +12,8 @@
 #ifdef LINUX
 #include <unistd.h>
 #endif
-#ifdef WINDOWS
+#ifdef _WIN32
+#define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #endif
 
@@ -32,7 +33,5 @@ void runTest(int(*test)(), char* name);
 int compareFloat(float expected, float actual);
 int compareArray(float expected[], float actual[], int size);
 int compareArrays(float* expected[], int esizes[], float* actual[], int asizes[], int count);
-int compareDoubleArray(double expected[], double actual[], int size);
-int compareDoubleArrays(double* expected[], int esizes[], double* actual[], int asizes[], int count);
 
 #endif

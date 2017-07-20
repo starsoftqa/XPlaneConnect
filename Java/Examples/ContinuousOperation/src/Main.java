@@ -15,17 +15,19 @@ public class Main
 {
     public static void main(String[] args)
     {
-        try (XPlaneConnect xpc = new XPlaneConnect())
+        try (XPlaneConnect xpc = new XPlaneConnect("192.168.0.102", 48001, 48000, 5000))
         {
+
             int aircraft = 0;
             while(true)
             {
-                float[] posi = xpc.getPOSI(aircraft); // FIXME: change this to 64-bit double
+                float[] posi = xpc.getPOSI(aircraft);
                 float[] ctrl = xpc.getCTRL(aircraft);
 
-                System.out.format("Loc: (%4f, %4f, %4f) Aileron:%2f Elevator:%2f Rudder:%2f\n",
-                        posi[0], posi[1], posi[2], ctrl[1], ctrl[0], ctrl[2]);
+//                System.out.format("Loc: (%, %, %, %) Aileron:%2f Elevator:%2f Rudder:%2f\n",
+//                        posi[3], posi[4], posi[5], posi[6], ctrl[1], ctrl[0], ctrl[2]);
 
+                System.out.printf("POSI: (%.0f, %.0f, %.0f, %.0f)\n", posi[3], posi[4], posi[5], posi[6]);
                 try
                 {
                     Thread.sleep(100);

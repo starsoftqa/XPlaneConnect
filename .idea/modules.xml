@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Java/Examples/BasicOperation/BasicOperation.iml" filepath="$PROJECT_DIR$/Java/Examples/BasicOperation/BasicOperation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Java/Examples/ContinuousOperation/ContinuousOperation.iml" filepath="$PROJECT_DIR$/Java/Examples/ContinuousOperation/ContinuousOperation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Java/Examples/Playback/Playback.iml" filepath="$PROJECT_DIR$/Java/Examples/Playback/Playback.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TestScripts/TestScripts.iml" filepath="$PROJECT_DIR$/TestScripts/TestScripts.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Java/XPlaneConnect.iml" filepath="$PROJECT_DIR$/Java/XPlaneConnect.iml" />
+    </modules>
+  </component>
+</project>

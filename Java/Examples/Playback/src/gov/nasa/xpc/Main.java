@@ -99,7 +99,7 @@ public class Main
             {
                 for (int i = 0; i < count; ++i)
                 {
-                    float[] posi = xpc.getPOSI(0); // FIXME: change this to 64-bit double
+                    float[] posi = xpc.getPOSI(0);
                     writer.write(String.format("%1$f, %2$f, %3$f, %4$f, %5$f, %6$f, %7$f\n",
                             posi[0], posi[1], posi[2], posi[3], posi[4], posi[5], posi[6]));
                     try
@@ -125,11 +125,11 @@ public class Main
             {
                 while(reader.hasNextLine())
                 {
-                    double[] posi = new double[7];
+                    float[] posi = new float[7];
                     for (int i = 0; i < 7; ++i)
                     {
                         String s = reader.next();
-                        posi[i] = Double.parseDouble(s);
+                        posi[i] = Float.parseFloat(s);
                     }
                     reader.nextLine();
                     xpc.sendPOSI(posi);
